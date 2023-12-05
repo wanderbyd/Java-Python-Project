@@ -84,7 +84,7 @@ public class ItemController {
 	}
 
 
-// 사진
+
 	@GetMapping("/upload-form")
 	public String showUploadForm(Model model) {
 		model.addAttribute("item", new Item());
@@ -222,7 +222,7 @@ public class ItemController {
 				e.printStackTrace();
 			}
 		}
-		// return "item/itemdetail_list";
+		
 		return "item/itemdetail";
 
 	}
@@ -238,8 +238,6 @@ public class ItemController {
 
 		qnaService.saveQna(qna);
 
-		// System.out.println("Saved Qna: " + qna);
-
 		model.addAttribute("qna", qna);
 
 		return "redirect:/detail?id=" + itemId;
@@ -251,10 +249,10 @@ public class ItemController {
 		Qna savedQna = qnaService.saveAnswer(qnaid, answer);
 
 		if (savedQna != null) {
-			// 저장된 Qna 객체에서 답변 내용을 가져와 응답으로 전송
+		
 			return ResponseEntity.ok(savedQna.getAnswer());
 		} else {
-			return ResponseEntity.badRequest().body("답변 저장에 실패했습니다.");
+			return ResponseEntity.badRequest().body("fail");
 		}
 	}
 
@@ -268,15 +266,15 @@ public class ItemController {
 		if (qnaOptional.isPresent()) {
 			Qna qna = qnaOptional.get();
 
-			// 본인이 작성한 글이거나 관리자인 경우 삭제 가능
+			
 			if (qna.getUsersid().equals(loggedInUser.getUsersid()) || isAdmin.equals("true")) {
 				qnaService.deleteQnaById(qnaid);
-				return new ResponseEntity<>("삭제가 완료되었습니다.", HttpStatus.OK);
+				return new ResponseEntity<>("success!", HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>("삭제 권한이 없습니다.", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<>("fail", HttpStatus.UNAUTHORIZED);
 			}
 		} else {
-			return new ResponseEntity<>("요청한 QnA가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -290,7 +288,7 @@ public class ItemController {
 		if (qnaOptional.isPresent()) {
 			Qna qna = qnaOptional.get();
 
-			// 사용자가 질문 작성자이거나 관리자인 경우 수정 가능
+			
 			if (loggedInUser != null
 					&& (qna.getUsersid().equals(loggedInUser.getUsersid()) || isAdmin.equals("true"))) {
 				model.addAttribute("qna", qna);
@@ -300,7 +298,7 @@ public class ItemController {
 			}
 		}
 
-		model.addAttribute("errorMessage", "수정 권한이 없습니다.");
+		model.addAttribute("errorMessage", "fail");
 		return "item/error";
 	}
 
@@ -314,18 +312,17 @@ public class ItemController {
 		if (qnaOptional.isPresent()) {
 			Qna qna = qnaOptional.get();
 
-			// 사용자가 질문 작성자이거나 관리자인 경우에만 수정 허용
 			if ((loggedInUser != null && qna.getUsersid().equals(loggedInUser.getUsersid()))
 					|| isAdmin.equals("true")) {
 				qna.setQuestion(updatedQna.getQuestion());
 				qnaService.updateQna(qna);
 
-				attributes.addFlashAttribute("successMessage", "수정이 성공적으로 완료되었습니다.");
+				attributes.addFlashAttribute("successMessage", "success!");
 			} else {
-				attributes.addFlashAttribute("errorMessage", "수정 권한이 없습니다.");
+				attributes.addFlashAttribute("errorMessage", "fail!");
 			}
 		} else {
-			attributes.addFlashAttribute("errorMessage", "요청한 QnA가 존재하지 않습니다.");
+			attributes.addFlashAttribute("errorMessage", "fail!");
 		}
 		return "redirect:" + referer;
 	}

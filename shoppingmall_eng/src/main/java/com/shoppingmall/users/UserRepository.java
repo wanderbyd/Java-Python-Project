@@ -15,6 +15,5 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
 	public Optional<Users> findByUsersid(Long usersid);
 
-	//public Optional<Cart> findByUsersid(Users loggedInUser2);
 
 }

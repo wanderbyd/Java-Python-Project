@@ -45,33 +45,31 @@ public class OrdersController {
 	    }
 	    
 	    
-	    @PostMapping("/orders/place-order")//카트 아이디도 들어옴//유저 아이디 넣어짐
+	    @PostMapping("/orders/place-order")
 	    public ResponseEntity<String> placeOrder(@RequestParam Long cartid, HttpSession session) {
-	        // Check if the user is logged in
+	       
 	        Users loggedInUser = (Users) session.getAttribute("loggedInUser");
 	        System.out.println("DEBUG: loggedInUser - " + loggedInUser);
 	        if (loggedInUser != null && loggedInUser.getUsersid() != null) {
-	            // Fetch the cart
+	         
 	            Optional<Cart> optionalCart = cartService.getUserCart(loggedInUser.getUsersid());
 
 	            if (optionalCart.isPresent()) {
 	                System.out.println("DEBUG: Cart found - " + optionalCart.get());
 	                List<Long> orderid = ordersService.transferCartToOrder(cartid, loggedInUser.getUsersid());
-	               // Long orderid = ordersService.transferCartToOrder(cartid);
+	              
 	                System.out.println("DEBUG: Orderid - " + orderid);
 
-	                // Clear the cart
+	           
 	                cartService.removeItemFromStock(cartid);
 	                System.out.println("DEBUG: Cart cleared");
 	            } else {
-	                // Handle the case when the cart is not found
-	                // You can throw an exception, log a message, or handle it based on your use case
+	             
 	                System.out.println("DEBUG: Cart not found");
 	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart not found");
 	            }
 	        } else {
-	            // Handle the case when the user is not logged in or usersid is null
-	            // You can throw an exception, log a message, or handle it based on your use case
+	         
 	            System.out.println("DEBUG: User not logged in or usersid is null");
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in or usersid is null");
 	        }
@@ -87,14 +85,11 @@ public class OrdersController {
 	        System.out.println("DEBUG: loggedInUser - " + loggedInUser);
 
 	        if (loggedInUser != null) {
-	            // Retrieve sorted orders directly from the service
-	          
-
-	            // Grouping logic remains the same as before
+	           
 	            Map<String, Map<String, List<Orders>>> groupedByUserAndDateTime = new HashMap<>();
 	            List<Orders> sortedOrders = ordersService.getAllOrdersSortedByDate();
 	            for (Orders order : sortedOrders) {
-	              //  double totalOrderPrice = 0.0;
+	            
 	                String userEmail = order.getUsers().getEmail();
 	                String dateTimeKey = order.getOrderdate().toString();
 
@@ -103,10 +98,10 @@ public class OrdersController {
 	                        .computeIfAbsent(dateTimeKey, k -> new ArrayList<>())
 	                        .add(order);
 
-	               // totalOrderPrice += order.getOrderprice();
+	              
 	            }
 
-	            // Sorting orders within each user and date-time group
+	     
 	            groupedByUserAndDateTime.forEach((userEmail, dateTimeOrdersMap) -> {
 	                dateTimeOrdersMap.forEach((dateTimeKey, ordersList) -> {
 	                    List<Orders> sortedOrdersWithinGroup = ordersList.stream()

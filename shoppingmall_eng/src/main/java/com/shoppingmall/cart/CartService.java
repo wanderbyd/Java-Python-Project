@@ -62,11 +62,11 @@ public class CartService {
 
 		Optional<Cart> cartOptional = getUserCart(usersid);
 		if (cartOptional.isEmpty()) {
-			// 로그인하지 않은 사용자가 장바구니에 접근하려고 할 때 로그인 페이지로 리디렉션
+			
 			try {
-				response.sendRedirect(contextPath + "/login"); // 로그인 페이지 URL로 수정
+				response.sendRedirect(contextPath + "/login"); 
 			} catch (IOException e) {
-				// 처리할 예외 상황
+			
 				e.printStackTrace();
 			}
 			return;
@@ -77,7 +77,7 @@ public class CartService {
 		cartRepository.save(cart);
 	}
 
-	// @Autowired
+
 	public void removeItemFromCart(Long usersid, Long itemid, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (request == null) {
@@ -112,7 +112,7 @@ public class CartService {
 		resetCart(cartid);
 	}
 
-	// @Autowired
+	
 	public void resetCart(Long cartid) {
 		if (cartid == null)
 			throw new NullPointerException("cartId should not be null");
@@ -123,42 +123,8 @@ public class CartService {
 		cartRepository.save(cart);
 	}
 
-	
-//	@Transactional
-//	public Map<Item, Long> getItemsFromCart(Long cartid) {
-//	    if (cartid == null)
-//	        throw new NullPointerException("cartId should not be null");
-//	    
-//	    Map<Item, Long> cartitem = new HashMap<>();
-//
-//	    Optional<Cart> cartOptional = cartRepository.findById(cartid);
-//	    if (cartOptional.isEmpty()) {
-//	        throw new NullPointerException("CartOptional should not be null");
-//	    }
-//
-//	    Cart cart = cartOptional.get();
-//	    
-//	    for (Map.Entry<Long, Long> entry : cart.getCartitem().entrySet()) {
-//	        Long itemId = entry.getKey();
-//	        Long quantity = entry.getValue();
-//
-//	        Optional<Item> itemOptional = itemService.findItemById(itemId);
-//	        
-//	        if (itemOptional.isPresent()) {
-//	            Item item = itemOptional.get();
-//	            cartitem.put(item, quantity);
-//	        } else {
-//	            // Handle the case when the item does not exist in the database
-//	            // For instance: log an error or skip adding it to the cartitem map
-//	            System.err.println("Item with ID " + itemId + " not found in the database.");
-//	        }
-//	    }
-//
-//	    return cartitem;
-//	}
 
-	
-	@Transactional//원래소스
+	@Transactional
 	public Map<Item, Long> getItemsFromCart(Long cartid) {
 		if (cartid == null)
 			throw new NullPointerException("cartId should not be null");
@@ -175,8 +141,7 @@ public class CartService {
 				Item item = itemOptional.get();
 				cartitem.put(item, cart.getCartitem().get(id));
 			} else {
-				// Handle the case when the item does not exist in the database
-				// For instance: log an error or skip adding it to the cartitem map
+				
 			}
 		}
 
@@ -214,7 +179,7 @@ public class CartService {
 		});
 	}
 	
-//오더때무에 추가한거
+
 	public Cart getCartByCartid(Long cartid) {
 		return null;
 	}

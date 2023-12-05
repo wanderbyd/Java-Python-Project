@@ -75,7 +75,6 @@ public class Item {
     private boolean sale;
     
     @Column(name = "category")
-   // @Enumerated(EnumType.STRING)
     private Category category;
 
     public Item() {}

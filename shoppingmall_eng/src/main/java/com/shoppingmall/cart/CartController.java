@@ -31,7 +31,7 @@ public class CartController {
 	private ItemService itemService;
 	
 
-	@GetMapping("/cart")//오더 때문에 약간의 수정을 했음 데이터베이스에 겹치지 않도록
+	@GetMapping("/cart")
 	public String showCart(Model model, HttpSession session, @RequestParam("itemid") Optional<Long> itemid,
 	        HttpServletRequest request, HttpServletResponse response) {
 	    System.out.println("start");
@@ -74,56 +74,6 @@ public class CartController {
 
 
 
-//	@GetMapping("/cart") // 카트 아이디를 가져와 보도록 할것 // 이 코드가 최근//원본
-//	public String showCart(Model model, HttpSession session, @RequestParam("itemid") Optional<Long> itemid,
-//			HttpServletRequest request, HttpServletResponse response) {
-//		System.out.println("start");
-//		String contextPath = request.getContextPath();
-//		Users loggedInUser = (Users) session.getAttribute("loggedInUser");
-//
-//		if (loggedInUser == null) {
-//			return "redirect:/login";
-//		}
-//
-//		Cart cart = null;
-//		if (itemid.isEmpty()) {
-//			if (cartService.hasUserCart(loggedInUser.getUsersid())) {
-//				cart = cartService.getUserCart(loggedInUser.getUsersid()).get();
-//				Map<Item, Long> cartitem = cartService.getItemsFromCart(cart.getCartid());
-//				model.addAttribute("cartitem", cartitem);
-//				model.addAttribute("total", cartService.calculateTotalPrice(cartitem));
-//				model.addAttribute("cartid", cart.getCartid());
-//			} else {
-//				cartService.createCart(loggedInUser.getUsersid());
-//				cart = cartService.getUserCart(loggedInUser.getUsersid()).get();
-//				Map<Item, Long> cartitem = cartService.getItemsFromCart(cart.getCartid());
-//				model.addAttribute("cartitem", cartitem);
-//				model.addAttribute("total", cartService.calculateTotalPrice(cartitem));
-//				model.addAttribute("cartid", cart.getCartid());
-//			}
-//		} else {
-//			if (cartService.hasUserCart(loggedInUser.getUsersid())) {
-//				cartService.addItemToCart(loggedInUser.getUsersid(), itemid.get(), 1L, request, response);
-//				cart = cartService.getUserCart(loggedInUser.getUsersid()).get();
-//				Map<Item, Long> cartitem = cartService.getItemsFromCart(cart.getCartid());
-//				model.addAttribute("cartitem", cartitem);
-//				model.addAttribute("total", cartService.calculateTotalPrice(cartitem));
-//				model.addAttribute("cartid", cart.getCartid());
-//			} else {
-//				cartService.createCart(loggedInUser.getUsersid());
-//				cartService.addItemToCart(loggedInUser.getUsersid(), itemid.get(), 1L, request, response);
-//				cart = cartService.getUserCart(loggedInUser.getUsersid()).get();
-//				Map<Item, Long> cartitem = cartService.getItemsFromCart(cart.getCartid());
-//				model.addAttribute("cartitem", cartitem);
-//				model.addAttribute("total", cartService.calculateTotalPrice(cartitem));
-//				model.addAttribute("cartid", cart.getCartid());
-//			}
-//		}
-////model.addAttribute("users", users);
-//		return "cart/cartitem";
-//
-//	}
-
 	@GetMapping("/payment")
 	public String showPayment(Model model, Users users, @RequestParam("cartid") Optional<Long> cartid) {
 		model.addAttribute("users", users);
@@ -164,7 +114,7 @@ public class CartController {
 			attributes.addFlashAttribute("error", "Error updating cart item quantity");
 		}
 
-		// 다시 원래 페이지로 리디렉션
+		
 		return "redirect:/cart"; // 여기서 "yourPreviousPageURL"은 실제 이전 페이지의 URL로 대체되어야 합니다.
 	}
 

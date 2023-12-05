@@ -105,8 +105,6 @@ public class Review {
         this.displayNumber = displayNumber;
     }
 
-
- //이거 활성화 시키면 시간 갭을 줘서 새 리뷰로 뜨도록 //지우지 말것
 	public void setDisplayNumber(int i) {
 
 	}
@@ -130,7 +128,7 @@ public class Review {
 	}
 
 	public Integer getLikes() {
-	    return this.likes != null ? this.likes.intValue() : 0; // 예시로 0을 기본값으로 사용
+	    return this.likes != null ? this.likes.intValue() : 0; 
 	}
 
 

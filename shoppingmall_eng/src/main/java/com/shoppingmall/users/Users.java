@@ -19,7 +19,7 @@ import jakarta.persistence.OneToMany;
 //import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-//import javax.persistence.*;
+
 
 @Entity
 @Table(name = "Users")
@@ -107,9 +107,6 @@ public class Users implements Serializable {
 		this.hashedpassword = hashedpassword;
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		return "Users [usersid=" + usersid + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
@@ -127,10 +124,6 @@ public class Users implements Serializable {
 		this.address = address;
 	}
 
-//	public Object getCartid() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }
 

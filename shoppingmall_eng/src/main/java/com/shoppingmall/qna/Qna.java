@@ -96,7 +96,7 @@ public class Qna {
 		this.answer = answer;
 	}
 
-// -- 추가 ---------------//
+
 	public Users getUsers() {
 		return users;
 	}
@@ -114,7 +114,6 @@ public class Qna {
 	}
 
 
-// ---------------------//
 
 	@Override
 	public String toString() {

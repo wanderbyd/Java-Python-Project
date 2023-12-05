@@ -18,7 +18,7 @@ public class MainController {
 	@Autowired
 	private ItemService itemService;
 
-	@GetMapping("/") // 메인페이지
+	@GetMapping("/") 
 	public String mainPage(Model model, Users users, HttpSession session) {
 		List<Item> items = new ArrayList<>();
 		for (Item i : itemService.findAllItems()) {

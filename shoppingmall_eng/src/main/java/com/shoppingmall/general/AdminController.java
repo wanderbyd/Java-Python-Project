@@ -25,17 +25,16 @@ public class AdminController {
 	@Autowired
 	private ItemService itemService;
 
-	@GetMapping("/addItem") // 상품추가 폼
-	public String addItemForm(Model model, Users users) {
-		// Item item = new Item();
-		Category[] category = Category.values(); // 모든 카테고리 값들을 배열로 가져옴
-		model.addAttribute("category", category); // 카테고리 값을 뷰로 전달
+	@GetMapping("/addItem") 
+	public String addItemForm(Model model, Users users) {		
+		Category[] category = Category.values(); 
+		model.addAttribute("category", category); 
 		model.addAttribute("users", users);
 		model.addAttribute("item", new Item());
 		return "item/itemcreate";
 	}
 
-	@GetMapping("/deleteItem") // 상품 삭제
+	@GetMapping("/deleteItem")
 	public String deleteItem(@RequestParam("itemid") Optional<Long> itemid, Users users) {
 		if (itemid.isEmpty())
 			return "redirect:/shop";
@@ -49,12 +48,12 @@ public class AdminController {
 
 	}
 
-	@PostMapping("/addItem") // 상품추가
+	@PostMapping("/addItem") 
 	public String addItem(Model model, @ModelAttribute("item") Item formItem,
 			@RequestParam("imageFile") MultipartFile imageFile, @RequestParam("imageFile2") MultipartFile imageFile2) {
 		try {
 			if (imageFile.isEmpty() || imageFile2.isEmpty()) {
-				throw new IllegalArgumentException("파일을 선택해주세요.");
+				throw new IllegalArgumentException("Choose File");
 			}
 
 			String uploadDir = "src/main/resources/static/images/imgfile/";
@@ -70,7 +69,7 @@ public class AdminController {
 			formItem.setImagePath("/images/imgfile/" + imageName);
 			formItem.setImagePath2("/images/imgfile/" + imageName2);
 
-			itemService.saveItem(formItem); // 아이템 저장
+			itemService.saveItem(formItem); 
 
 			return "redirect:/shop";
 		} catch (IOException e) {
@@ -79,42 +78,8 @@ public class AdminController {
 		}
 	}
 
-//	@GetMapping("/editItem") // 상품 수정 폼
-//	public String editItemForm(@RequestParam("itemid") Long itemid, Model model, Users users) {
-//		Optional<Item> item = itemService.findItemById(itemid);
-//
-//		if (item.isEmpty()) {
-//			return "redirect:/shop";
-//		}
-//
-//		model.addAttribute("users", users);
-//		model.addAttribute("item", item.get());
-//
-//		return "item/itemedit";
-//	}
 
-//	@PostMapping("/editItem") // 상품 수정
-//	public String editItem(@ModelAttribute("item") Item formItem) {
-//		Optional<Item> item = itemService.findItemById(formItem.getItemid());
-//
-//		if (item.isEmpty()) {
-//			return "redirect:/shop";
-//		}
-//
-//		item.get().setName(formItem.getName());
-//		item.get().setDescription(formItem.getDescription());
-//		item.get().setPrice(formItem.getPrice());
-//		item.get().setImagePath(formItem.getImagePath());
-//		item.get().setImagePath2(formItem.getImagePath2());
-//		item.get().setStock(formItem.getStock());
-//		item.get().setSale(formItem.isSale());
-//
-//		itemService.saveItem(item.get());
-//
-//		return "redirect:/detail?id=" + item.get().getItemid();
-//	}
-
-	@GetMapping({ "/editItemForm", "/editItem" }) // 상품 수정 폼
+	@GetMapping({ "/editItemForm", "/editItem" }) 
 
 	public String editItemForm(@RequestParam("itemid") Long itemid, Model model, Users users) {
 
@@ -138,7 +103,7 @@ public class AdminController {
 
 	}
 
-	@PostMapping("/editItem") // 상품 수정
+	@PostMapping("/editItem") 
 
 	public String editItem(@ModelAttribute("item") Item formItem, @RequestParam("imageFile") MultipartFile imageFile,
 
@@ -148,9 +113,7 @@ public class AdminController {
 
 	}
 
-	// 공통된 로직을 수행하는 메서드
 
-	// 공통된 로직을 수행하는 메서드
 
 	private String processItemForm(Model model, Item formItem, MultipartFile imageFile, MultipartFile imageFile2) {
 
@@ -158,7 +121,7 @@ public class AdminController {
 
 			if (imageFile.isEmpty() || imageFile2.isEmpty()) {
 
-				throw new IllegalArgumentException("파일을 선택해주세요.");
+				throw new IllegalArgumentException("Choose File");
 
 			}
 
@@ -182,7 +145,7 @@ public class AdminController {
 
 			formItem.setImagePath2("/images/imgfile/" + imageName2);
 
-			itemService.saveItem(formItem); // 아이템 저장
+			itemService.saveItem(formItem); 
 
 			return (model != null) ? "redirect:/shop" : "redirect:/detail?id=" + formItem.getItemid();
 

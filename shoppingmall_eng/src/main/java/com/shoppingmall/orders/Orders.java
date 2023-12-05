@@ -134,12 +134,12 @@ public class Orders {
     }
 
 	public void setUsersid(Users users) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void setCartid(Cart cart) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -151,33 +151,33 @@ public class Orders {
 
 
 	public void setOrderdate(LocalDateTime orderdate) {
-        // 초까지만 유지하고 나머지는 0으로 설정
+     
         this.orderdate = orderdate.withNano(0);
     }
 
     public String getFormattedOrderdate() {
-        // 초 이하의 소수점 자릿수를 2자리로 제한하여 문자열로 반환
+      
         return orderdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
     }
 
 	public void setCartid(Long cartid) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	public void setUsersid(Long usersid) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void setCartitem(Map<Item, Long> cartitem) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 
 	public void setItems(List<Item> orderItems) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

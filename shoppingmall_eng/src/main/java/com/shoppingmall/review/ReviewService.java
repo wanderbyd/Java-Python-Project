@@ -42,20 +42,16 @@ public class ReviewService {
 
 	@Transactional
 	public Review addReview(Users users, Long itemid, String contents, HttpSession session, byte[] reviewImage) {
-	    if (users == null) {
-	        // Handle user not found error
+	    if (users == null) {	      
 	        return null;
 	    }
 
 	    Optional<Item> item = itemRepository.findByItemid(itemid);
 	    if (item.isEmpty()) {
-	        // Handle item not found error
 	        return null;
 	    }
 
-	    // Validate input
-	    if (contents == null || contents.trim().isEmpty() || reviewImage == null || reviewImage.length == 0) {
-	        // Handle invalid input error
+	    if (contents == null || contents.trim().isEmpty() || reviewImage == null || reviewImage.length == 0) { 
 	        return null;
 	    }
 
@@ -68,26 +64,23 @@ public class ReviewService {
 
 	        return reviewRepository.save(newReview);
 	    } catch (Exception e) {
-	        // Log the exception or handle it as needed
 	        e.printStackTrace();
 	        throw new RuntimeException("Error adding review", e);
 	    }
 	}
 
-	// 모든 리뷰 조회
+
 	@Autowired
 	public List<Review> getAllReviews() {
 		return reviewRepository.findAll();
 	}
 
-	
-	//리뷰 정렬해서 가져오기
 	public List<Review> getReviewsByItem(Optional<Item> item) {
 	    if (item.isPresent()) {
 	        Long itemid = item.get().getItemid();
 	        return reviewRepository.findByItemOrderByRvidAsc(item);
 	    } else {
-	        return Collections.emptyList(); // Item이 존재하지 않을 경우 빈 리스트 반환
+	        return Collections.emptyList(); 
 	    }
 	}
 
@@ -95,7 +88,6 @@ public class ReviewService {
 		return reviewRepository.findByUsers(users);
 	}
 
-	// 리뷰 삭제//어드민만 가능하게
 	@Transactional
 	public void deleteReview(Long rvid) {
 		reviewRepository.deleteById(rvid);
@@ -110,7 +102,7 @@ public class ReviewService {
 		if (reviewRepository.existsById(review.getRvid())) {
 			reviewRepository.save(review);
 		} else {
-			// 리뷰가 존재하지 않을 경우 예외 처리 또는 다른 로직 수행
+			
 		}
 	}
 	
@@ -132,19 +124,16 @@ public class ReviewService {
 	}
 
 	public void saveReview(Review newReview) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
-	//좋아요
+
 	public void increaseLikes(Long rvid) {
         Review review = reviewRepository.findById(rvid)
                 .orElseThrow(() -> new RuntimeException("Review not found with id: " + rvid));
 
-        // 좋아요 수 증가
         review.setLikes(review.getLikes() + 1);
-
-        // 변경사항 저장
         reviewRepository.save(review);
     }
 	

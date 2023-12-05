@@ -49,17 +49,17 @@ public class QnaService {
 		qnaRepository.save(qna);
 	}
 
-	// 추가
+
 	@Transactional
 	public Qna saveAnswer(Long qnaid, String answerContent) {
 		try {
 			Qna qna = qnaRepository.findById(qnaid).orElse(new Qna());
 			qna.setQnaid(qnaid);
 			qna.setAnswer(answerContent);
-			return qnaRepository.save(qna); // 저장된 Qna 객체 반환
+			return qnaRepository.save(qna); 
 		} catch (Exception e) {
-			e.printStackTrace(); // 예외 로그 출력
-			return null; // 예외 발생 시 null 반환하거나 적절한 예외 처리
+			e.printStackTrace(); 
+			return null; 
 		}
 	}
 

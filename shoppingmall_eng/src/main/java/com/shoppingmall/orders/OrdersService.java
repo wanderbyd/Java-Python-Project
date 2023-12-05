@@ -66,10 +66,9 @@ public class OrdersService {
 			for (Map.Entry<Item, Long> entry : cartItems.entrySet()) {
 				Orders order = new Orders();
 
-				order.setUsersid(cart.getUsersid());
-				// order.setCartid(cart.getCartid());
-				order.setUsers(loggedInUser); // Set the Users in Orders
-				order.setCart(cart); // Set the Cart in Orders
+				order.setUsersid(cart.getUsersid());			
+				order.setUsers(loggedInUser); 
+				order.setCart(cart); 
 
 				Item item = entry.getKey();
 				Long quantity = entry.getValue();
@@ -88,7 +87,7 @@ public class OrdersService {
 			return orderIds;
 		} else {
 			System.out.println("DEBUG: CartItem not found or empty");
-			return Collections.emptyList(); // or throw an exception, depending on your use case
+			return Collections.emptyList(); 
 		}
 	}
 
@@ -103,15 +102,14 @@ public class OrdersService {
 	}
 
 	public List<List<Orders>> getAllOrdersSortedAndGrouped() {
-		// 모든 주문을 주문자로 그룹화하고, 그 안에서 날짜별로 그룹화하고 각 그룹 내에서 주문 날짜를 기준으로 정렬
-		// List<Orders> allOrders = ordersRepository.findAllByOrderByOrderdateAsc();
+	
 		List<Orders> allOrders = ordersRepository.findAll(Sort.by(Sort.Direction.ASC, "orderdate"));
 
 		Map<String, List<Orders>> groupedOrders = allOrders.stream()
 				.filter(order -> order.getUsers() != null && order.getUsers().getEmail() != null)
 				.collect(Collectors.groupingBy(order -> order.getUsers().getEmail()));
 
-		// 정렬된 결과를 반환
+		
 		return groupedOrders.values().stream().map(userOrders -> userOrders.stream()
 				.collect(Collectors.groupingBy(order -> order.getOrderdate().toLocalDate(), Collectors.toList()))
 				.values().stream()
@@ -123,7 +121,7 @@ public class OrdersService {
 	}
 
 	public List<Orders> getAllOrdersSortedByDate() {
-		// You can add more sophisticated sorting logic here
+	
 		return ordersRepository.findAllByOrderByOrderdateAsc();
 	}
 

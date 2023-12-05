@@ -24,7 +24,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("UPDATE Review r SET r.displayNumber = :displayNumber WHERE r.rvid = :rvid")
     void updateDisplayNumber(@Param("rvid") Long rvid, @Param("displayNumber") Integer displayNumber);
 	
-  //화면에 순서대로 찍히도록!
     List<Review> findByItemOrderByRvidAsc(Optional<Item> item);
 
 }
