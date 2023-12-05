@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+	<title>HOME</title>
+
+	<th:block th:insert="utils/imports.html :: meta"></th:block>
+
+	<th:block th:insert="utils/imports.html :: maincss"></th:block>
+
+</head>
+
+
+
+<body>
+
+	<th:block th:insert="utils/header.html :: header"></th:block>
+
+	<section id="slider">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="item active">
+								<div class="row">
+									<div class="col-sm-6">
+										<a href="/shop?category=HEADWEAR" class="btn btn-default get"
+											style="border: 1px solid rgb(0, 0, 0); ">
+											<img src="images/home/cap.jpg" alt="Cap">
+										</a>
+									</div>
+									<div class="col-sm-6">
+										<a href="/shop?category=OUTER" class="btn btn-default get"
+											style="border: 1px solid rgb(0, 0, 0);">
+											<img src="images/home/clothes.png" alt="Clothes">
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="row">
+									<div class="col-sm-6">
+										<a href="/shop?category=SHOES" class="btn btn-default get"
+											style="border: 1px solid rgb(0, 0, 0); ">
+											<img src="images/home/shoes.jpg" alt="Shoes">
+										</a>
+									</div>
+									<div class="col-sm-6">
+										<a href="/shop?category=ACC" class="btn btn-default get"
+											style="border: 1px solid rgb(0, 0, 0); ">
+											<img src="images/home/accessory.jpg" alt="Accessory">
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="row">
+									<div class="col-sm-6">
+										<a href="/shop?category=BAGS" class="btn btn-default get"
+											style="border: 1px solid rgb(0, 0, 0); ">
+											<img src="images/home/bag.jpg" alt="Bag">
+										</a>
+									</div>
+									<div class="col-sm-6">
+										<a href="/shop" class="btn btn-default get"
+											style="border: 1px solid rgb(0, 0, 0);">
+											<img src="images/home/buy.jpg" alt="Buy">
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						</a>
+						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-sm-12 padding-right">
+
+				<div class="features_items">
+
+					<h2 class="title text-center" style="color: rgb(0, 0, 0);">BESTSELLER</h2>
+
+					<div th:each="item : ${items}" class="col-sm-4">
+
+						<div class="product-image-wrapper-main">
+
+
+
+							<div class="single-products" style="width: 360px;height: 350px;">
+
+								<div class="productinfo text-center">
+
+									<a th:href="${'detail?id=' + item.itemid}" class="product-link">
+
+										<div class="productinfo text-center">
+
+											<img style="width: 360px;height: 350px;" th:src="${item.getImagePath()}"
+												alt="" />
+											<p th:text="${item.name}"></p>
+											<h2 th:text="${item.getPrice()} + 'KRW'"></h2>
+
+										</div>
+									
+
+									</a>
+								</div>
+								<th:block th:if="${item.isSale()}">
+
+									<img src="images/home/sale.png" class="new" alt="" />
+								</th:block>
+							</div>
+						</div>
+					</div>
+				</div><!--features_items-->
+			</div>
+		</div>
+	</div>
+
+	</section>
+
+
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+
+			var priceElements = document.querySelectorAll(".price");
+			priceElements.forEach(function (priceElement) {
+				var price = priceElement.textContent;
+				var formattedPrice = parseFloat(price).toLocaleString('en-US');
+				priceElement.textContent = formattedPrice + 'KRW';
+
+			});
+
+		});
+
+		
+
+	</script>
+
+
+	<div style="width: 66%; margin-left:auto;margin-right: auto; ">
+		<th:block th:insert="utils/footer.html :: footer"></th:block>
+	</div>
+	<th:block th:insert="utils/imports.html :: mainjs"></th:block>
+
+</body>
+
+
+
+</html>

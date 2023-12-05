@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+</head>
+
+<body>
+	<header id="header"><!--header-->
+		<div class="header-middle"><!--header-middle-->
+			<div class="container" style="border: none; margin-top: 0px;padding-top: 0px;">
+				<div class="row" style="padding-bottom: 0px;">
+					<div class="animated-title">
+				
+					</div>
+					<br>
+					<div class="col-sm-4" style="margin-top: 0px;">
+						<div class="logo pull-left" style="margin-left: 20px;">
+							<a href="/"><img src="images/home/logo.png" alt="" /></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right" style="padding-top: 12px; padding-right: 20px;">
+							<ul>
+								<!-- 세션이 인증되어 있을 때 -->
+							 <i class="fa fa-users"></i>
+								<li sec:authorize="${session.getAttribute('loggedInUser') ne null}">
+								
+									<div>
+										<span th:if="${session['loggedInUser'] != null}">
+											<span
+												th:text="${session['loggedInUser'].firstname + ' ' + session['loggedInUser'].lastname}"></span>
+										</span>
+									</div>
+								</li>
+								<li><a href="/cart"><i class="fa fa-shopping-cart"></i> CART</a></li>
+								<li>
+									
+									<a href="/allOrders">ORDERS</a>
+								</li>
+								<li th:unless="${session['loggedInUser'] != null}">
+									<a href="/login"><i class="fa fa-lock"></i> LOGIN</a>
+								</li>
+								<li th:if="${session['loggedInUser'] != null}">
+									<a href="/logout"><i class="fa fa-lock"></i> LOGOUT</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+
+		<div class="header-bottom" style="padding-top: 0px;padding-bottom: 0px;"><!--header-bottom-->
+			<div class="container" style="border: none; padding-top: 0px;padding-bottom: 0px;margin-top: 0px;">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse"
+								data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="/" style="left:50px">HOME</a></li>
+								<div class="dropdown">
+									<button class="dropbtn">
+										<a href="shop" style="color: rgb(0, 0, 0);" >
+										SHOP
+										</a>
+									</button>
+									<div class="dropdown-content">
+										<a href="shop">ALL</a>
+										<a href="/shop?category=TOP">TOP</a>
+										<a href="/shop?category=BOTTOM">BOTTOM</a>
+										<a href="/shop?category=OUTER">OUTER</a>
+										<a href="/shop?category=SPORTSWEAR">SPORTSWEAR</a>
+										<a href="/shop?category=HEADWEAR">HEADWEAR</a>
+										<a href="/shop?category=BAGS">BAGS</a>
+										<a href="/shop?category=SHOES">SHOES</a>
+										<a href="/shop?category=ACC">ACC</a>
+									</div>
+								</div>
+							
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</body>
+
+</html>

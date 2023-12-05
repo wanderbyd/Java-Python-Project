@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Popup</title>
+	<!-- Add Bootstrap CDN link -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		/* Custom CSS styles */
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f8f9fa;
+			margin: 20px;
+		}
+
+		.vip_popup_wrap {
+			max-width: 600px;
+			margin: 0 auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.tit_vippop {
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+
+		.subinfo {
+			color: #555;
+		}
+
+		.tb_questionform {
+			width: 100%;
+		}
+
+		.question {
+			width: 100%;
+			padding: 8px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin-bottom: 10px;
+			resize: vertical;
+		}
+
+		.tit_caution {
+			font-weight: bold;
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+
+		.lst_caution {
+			color: #777;
+			margin-bottom: 20px;
+		}
+
+		.info_formbottom {
+			margin-top: 20px;
+		}
+
+		.txt_emp {
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="vip_popup_wrap">
+		<h2 class="tit_vippop">Welcome to Customer Service!</h2>
+		<p class="subinfo">Don't hesitate leave a question about the product or anything!</p>
+		<form id="myForm" action="/submit" method="post">
+			<table class="tb_questionform">
+				<input type="hidden" th:value="${usersid}" name="usersid" id="usersid">
+				<input type="hidden" th:value="${itemIdValue}" name="itemid" id="itemid">
+
+				<div>
+					<p>User ID: <span th:text="${usersid}"></span></p>
+					<p>Item ID: <span th:text="${itemIdValue}"></span></p>
+				</div>
+
+				<div>
+					<label for="question">Contents</label>
+					<textarea title="내용" class="question" id="question" name="question" cols="70" rows="11"></textarea>
+				</div>
+
+				<div>
+					<strong class="tit_caution">Caution!</strong>
+					<ul class="lst_caution">
+						<li>DO NOT LEAVE YOUR PERSONAL INFORMATIONS.</li>
+						<li>Posts containing slander, advertising, or unhealthy content may be deleted by the administrator without prior consent.</li>
+					</ul>
+				</div>
+			</table>
+			<div class="info_formbottom">
+				<button type="submit" class="btn btn-primary">OK</button>
+				<button type="button" class="btn btn-secondary" onclick="goBack()">CANCEL</button>
+			</div>
+		</form>
+	</div>
+
+	<!-- Bootstrap JS (Optional) -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		function saveContent(event) {
+			event.preventDefault();
+			var content = document.getElementById('question').value;
+			localStorage.setItem('savedContent', content);
+			window.history.back();
+		}
+
+		function goBack() {
+			window.history.back();
+		}
+
+	</script>
+
+</body>
+
+</html>
