@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Teacher</title>
+    
+       <style>
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+         background-color: rgb(255, 149, 149);
+            border: none; 
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+        input[type="submit"]:hover {
+           background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+
+    a.btn.btn-list {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+       background-color: rgb(85, 169, 225);
+             border: none; 
+        transition: background-color 0.3s;
+    }
+      a.btn.btn-list:hover {
+        background-color: rgb(116, 185, 231);
+            color: #fff;
+    }
+
+       
+    </style>
+</head>
+<body>
+	<div class="container">
+    <h1>Add Instructor</h1>
+    <form th:action="@{'/teachers/create'}" method="post">
+        <label for="teacherID">Instructor ID</label>
+        <input type="text" id="teacherID" name="teacherid" />
+        <label for="name">Name</label>
+        <input type="text" id="name" name="tname"/>
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" name="phonenumber"/>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" />
+         <input class="btn btn-primary" type="submit" value="Submit">
+        <a class="btn btn-list" href="#" th:attr="data-url=@{'/teachers'}"
+							th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>

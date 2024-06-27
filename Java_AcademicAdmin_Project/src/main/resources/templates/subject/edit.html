@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Edit Subject</title>
+	<style>
+		.container {
+			max-width: 1500px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			color: #333;
+			text-align: center;
+		}
+
+		form {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+			margin-top: 20px;
+		}
+
+		label {
+			font-weight: bold;
+			color: #333;
+		}
+
+		input {
+			width: 100%;
+			padding: 8px;
+			margin-top: 5px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+		}
+
+		input[type="submit"],
+		a.btn-primary,
+		a.btn-danger {
+			display: inline-block;
+			padding: 8px 16px;
+			margin-top: 20px;
+			text-decoration: none;
+			color: #fff;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+     input[type="submit"],
+        a.btn-primary {
+              background-color: rgb(85, 169, 225);
+             border: none; 
+        }
+
+      .btn-danger {
+            background-color: rgb(255, 149, 149);
+            border: none; 
+        }
+
+        .btn-danger:hover {
+            background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+        input[type="submit"]:hover,
+        a.btn-primary:hover {
+          background-color: rgb(116, 185, 231);
+        }
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Edit Subject</h1>
+		<form th:action="@{'/subjects/update/' + ${subject.subjectcode}}" method="post" th:object="${subject}">
+			<input type="hidden" th:field="*{subjectcode}">
+
+			<label for="subjectname">Subject Name</label>
+			<input type="text" id="subjectname" name="subjectname" th:field="*{subjectname}">
+
+			<label for="textbookname">Textbook Name</label>
+			<input type="text" id="textbookname" name="textbookname" th:field="*{textbookname}">
+
+			<input type="submit" value="Update">
+			<a class="btn btn-danger" href="#" th:attr="data-url=@{'/subjects'}"
+				th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Cancel</a>
+		</form>
+	</div>
+</body>
+
+</html>

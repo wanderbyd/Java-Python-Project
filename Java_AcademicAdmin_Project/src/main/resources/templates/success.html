@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    <style>
+        /* 팝업 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="popup" class="modal">
+        <div class="modal-content">
+            <p th:text="${successMessage}"></p>
+            <button id="closePopup">Close</button>
+        </div>
+    </div>
+    <script>
+        // JavaScript 코드
+        document.addEventListener("DOMContentLoaded", function () {
+            var popup = document.getElementById("popup");
+            var closeButton = document.getElementById("closePopup");
+
+            // 팝업을 보여주는 함수
+            function showPopup() {
+                popup.style.display = "block";
+            }
+
+            // 팝업을 닫는 함수
+            function closePopup() {
+                popup.style.display = "none";
+                window.location.href = "/"; // 확인 버튼을 누르면 메인 페이지로 리다이렉트
+            }
+
+            // 확인 버튼 클릭 이벤트 처리
+            closeButton.addEventListener("click", function () {
+                closePopup();
+            });
+
+            // 페이지 로드 시 팝업 표시
+            showPopup();
+        });
+    </script>
+</body>
+</html>

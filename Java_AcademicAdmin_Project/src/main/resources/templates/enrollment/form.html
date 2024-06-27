@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Enrollment</title>
+        <style>
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+           input[type="submit"] {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+         background-color: rgb(255, 149, 149);
+            border: none; 
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+        input[type="submit"]:hover {
+           background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+
+    a.btn.btn-list {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+       background-color: rgb(85, 169, 225);
+             border: none; 
+        transition: background-color 0.3s;
+    }
+      a.btn.btn-list:hover {
+        background-color: rgb(116, 185, 231);
+            color: #fff;
+    }
+
+       
+    </style>
+</head>
+<body>
+		<div class="container">
+			
+    <h1>Create Enrollment</h1>
+    <form action="#" th:action="@{/enrollments/save}" th:object="${enrollment}" method="post">
+    
+    <label for="course">Select Course</label>
+    <select th:field="*{coursecode}">
+    <option value="">Select Course Code</option>
+    <th:block th:each="course : ${courses}">
+        <option th:value="${course.coursecode}" th:text="${course.coursecode + ' - ' + course.coursename}"></option>
+    </th:block>
+</select>
+
+    <label for="student">Select Student</label>
+    <select th:field="*{ssn}">
+    <option value="">Select Student</option>
+    <th:block th:each="student : ${students}">
+        <option th:value="${student.ssn}" th:text="${student.ssn + ' - ' + student.fullname}"></option>
+    </th:block>
+</select>
+	
+    <label for="evaluation">Evaluation</label>
+    <input type="text" id="evaluation" name="evaluation" th:field="*{evaluation}" />
+
+    <label for "tuitionfee">Tuition Fee</label>
+    <input type="text" id="tuitionfee" name="tuitionfee" th:field="*{tuitionfee}" />
+
+    <!-- Add other attendance fields as needed -->
+    <label for="attendance1">Attendance 1</label>
+    <input type="text" id="attendance1" name="attendance1" th:field="*{attendance1}" />
+
+    <label for="attendance2">Attendance 2</label>
+    <input type="text" id="attendance2" name="attendance2" th:field="*{attendance2}" />
+
+    <label for="attendance3">Attendance 3</label>
+    <input type="text" id="attendance3" name="attendance3" th:field="*{attendance3}" />
+
+    <label for="attendance4">Attendance 4</label>
+    <input type="text" id="attendance4" name="attendance4" th:field="*{attendance4}" />
+
+    <label for="attendance5">Attendance 5</label>
+    <input type="text" id="attendance5" name="attendance5" th:field="*{attendance5}" />
+   <input class="btn btn-primary" type="submit" value="Submit">
+<a class="btn btn-list" href="#" th:attr="data-url=@{'/enrollments'}"
+				th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Back to List</a>
+
+    </form>
+    	</div>
+
+</body>
+</html>

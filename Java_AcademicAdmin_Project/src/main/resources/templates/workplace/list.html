@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Workplaces</title>
+
+	<style>
+		.container {
+			max-width: 1500px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.header-section {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+		}
+
+		.table-section {
+			max-height: 400px;
+			overflow-y: auto;
+			border-spacing: 10px;
+			width: 1200px;
+		}
+
+		table {
+			width: 100%;
+			border-spacing: 0;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #333;
+			color: #fff;
+		}
+
+		.actions {
+			display: flex;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 8px 16px;
+			margin-right: 10px;
+			text-decoration: none;
+			color: #fff;
+			background-color: rgb(85, 169, 225);
+			border: none;
+			border-radius: 4px;
+			transition: background-color 0.3s, color 0.3s;
+		}
+
+		.btn:hover {
+			background-color: rgb(116, 185, 231);
+			color: #fff;
+		}
+
+		.btn-danger {
+			background-color: rgb(255, 149, 149);
+			border: none;
+		}
+
+		.btn-danger:hover {
+			background-color: rgb(255, 176, 176);
+			border: none;
+		}
+
+		.footer-section {
+			margin-top: 20px;
+			display: flex;
+			justify-content: space-between;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="header-section">
+			<h1 style="display: inline;">Workplaces</h1>
+			<div style="display: inline;">
+				<select id="sortSelect" onchange="handleSortChange(this)">
+					<option value='null'>Sort By</option>
+					<option value="regno">BRN</option>
+					<option value="cname">Company</option>
+					<option value="inputOrder">InputOrder</option>
+
+				</select>
+			</div>
+		</div>
+
+		<div class="table-section">
+			<table>
+				<thead>
+
+					<tr>
+
+
+						<th>Business Registration Number</th>
+						<th>CompanyName</th>
+						<th>CompanyAddress</th>
+						<th>PhoneNumber</th>
+						<th>FaxNumber</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="workplace : ${workplaces}">
+						<td th:text="${workplace.businessregistrationnumber}"></td>
+						<td th:text="${workplace.companyname}"></td>
+						<td th:text="${workplace.companyaddress}"></td>
+						<td th:text="${workplace.phonenumber}"></td>
+						<td th:text="${workplace.faxnumber}"></td>
+						<td>
+
+							<a class="btn btn-primary" href="#"
+								th:attr="data-url=@{'/workplaces/' + ${workplace.businessregistrationnumber}}"
+								th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Detail</a>
+
+
+							<a class="btn btn-primary" href="#"
+								th:attr="data-url=@{'/workplaces/edit/' + ${workplace.businessregistrationnumber}}"
+								th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Edit</a>
+
+
+							<form th:action="@{'/workplaces/delete/' + ${workplace.businessregistrationnumber}}"
+								method="post" style="display: inline;">
+
+								<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+							</form>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="footer-section">
+			<a class="btn" href="#" th:attr="data-url=@{'/workplaces/form'}"
+				th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Add Workplace</a>
+
+			<a class="btn btn-danger" th:href="@{'/'}">Main</a>
+		</div>
+	</div>
+	</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var sortSelect = document.getElementById("sortSelect");
+		var selectedOption = localStorage.getItem("selectedSortOption");
+
+		if (selectedOption) {
+			sortSelect.value = selectedOption;
+			handleSortChange(sortSelect);
+		}
+
+		sortSelect.addEventListener("change", function () {
+			var selectedValue = sortSelect.value;
+			localStorage.setItem("selectedSortOption", selectedValue);
+		});
+	});
+
+	function handleSortChange(selectElement) {
+		var selectedOption = selectElement.value;
+		var url = "/workplaces?sortBy=" + selectedOption;
+
+		fetch(url)
+			.then(response => response.text())
+			.then(data => {
+				var parser = new DOMParser();
+				var doc = parser.parseFromString(data, 'text/html');
+
+				// Update the student list container with the new content
+				var listContainer = document.querySelector('.table-section');
+				listContainer.innerHTML = doc.querySelector('.table-section').innerHTML;
+
+				// Reattach event listeners to buttons
+				addEventListenersToButtons(listContainer);
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+	}
+
+	// Function to add event listeners to buttons
+	function addEventListenersToButtons(container) {
+		var buttons = container.querySelectorAll('.btn');
+
+		buttons.forEach(function (button) {
+			button.addEventListener('click', function (event) {
+				// Your button click logic here
+				event.preventDefault();
+				console.log('Button clicked!');
+			});
+		});
+	}
+</script>
+
+</body>
+</html>

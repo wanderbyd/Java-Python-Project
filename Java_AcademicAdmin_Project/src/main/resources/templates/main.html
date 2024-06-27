@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<title>Academic Management(Admin version)</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<style>
+				.container {
+			max-width: 1500px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.logo {
+
+			display: flex;
+
+			align-items: center;
+
+		}
+
+		.project-title {
+
+			text-align: center;
+
+			margin-top: 10px;
+
+		}
+
+		.nav-menu {
+
+			display: flex;
+
+			justify-content: center;
+
+		}
+
+		.nav-item {
+
+			margin-right: 0px;
+			/* 메뉴 항목 간격 조정 */
+		
+		
+
+		}
+
+		.nav-item.active a {
+
+			background-color: rgb(255, 128, 128);
+
+			color: white;
+			/* 텍스트 색상 변경 */
+
+		}
+
+		#content {
+
+			margin-top: 20px;
+
+			display: flex;
+
+			justify-content: center;
+
+		}
+
+		.nav-menu {
+			background-color:rgb(22, 12, 52);
+			
+			border: 5px solid rgb(255, 255, 255);
+		 /* 두꺼운 테두리 추가 */		
+		border-radius: 10px;
+		/* 	테두리를 둥글게 만듭니다. 원하는 정도로 조절 가능 */
+
+		}
+
+		.project-title {
+			text-align: center;
+			padding: 10px;
+
+		}
+		.nav-link {
+    color: white !important;
+   /*  border: 10px  !important; */
+      border-radius: 0px!important;
+}
+
+		
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container" style="width: 1060px;">
+
+  <div class="row justify-content-center">
+        <div class="col-xs-2 logo text-center">
+            <img src="images/LOGO.png" alt="로고자리" width="50" id="logo" style="cursor: pointer;">
+        </div>
+        <div class="col-xs-10 project-title text-center">
+             <span style="color: rgb(0, 0, 0);">SpringJPA Oracle Project</span><h1 style="color: rgb(0, 0, 0);">Academic Administration Management System</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="nav-menu">
+			
+		</div>
+
+		<div class="nav-menu">
+
+			<ul class="nav nav-tabs flex-wrap">
+
+				<li class="nav-item"><a class="nav-link" href="/students">Students 
+
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/courses">Courses
+
+						</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/workplaces">Workplaces
+
+		</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/subjects">Subjects
+
+						</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/lecturerooms">LectureRooms
+
+						</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/teachers">Instructors
+
+					</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/enrollments">Enrollments</a>
+
+				</li>
+
+				<li class="nav-item"><a class="nav-link" href="/courseinstructors">CourseInstructors</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="/erd"> ERD</a>
+
+				</li>
+
+
+			</ul>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-12">
+
+				<!-- 메인 이미지 또는 콘텐츠를 표시할 div -->
+
+				<div id="content">
+
+					<img src="images/museum.jpg" alt="main image" style="max-width:95%; height: auto; border-radius: 10px;">
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script>
+
+		// 메뉴 클릭 시 해당 콘텐츠 로드
+
+		$(document).ready(function () {
+
+			$("ul.nav-tabs li a").click(function (event) {
+
+				event.preventDefault();
+
+				$("ul.nav-tabs li").removeClass("active"); // 모든 메뉴 항목에서 active 클래스 제거
+
+				$(this).parent().addClass("active"); // 선택한 메뉴 항목에 active 클래스 추가
+
+				var link = $(this).attr("href");
+
+				loadContent(link);
+
+			});
+
+			function loadContent(url) {
+
+				$("#content").load(url, function (response, status, xhr) {
+
+					if (status === "error") {
+
+						// 에러 처리
+
+					}
+
+				});
+
+			}
+
+		});
+
+
+
+		// 로고 클릭 시 페이지 리로드
+
+		document.getElementById("logo").addEventListener("click", function () {
+
+			location.reload();
+
+		});
+
+	</script>
+
+	<script>
+
+		function loadNewContent(url) {
+
+			fetch(url)
+
+				.then(response => response.text())
+
+				.then(data => {
+
+					document.getElementById("content").innerHTML = data;
+
+				})
+
+				.catch(error => {
+
+					console.error('Error:', error);
+
+				});
+
+		}
+
+	</script>
+
+</body>
+
+</html>

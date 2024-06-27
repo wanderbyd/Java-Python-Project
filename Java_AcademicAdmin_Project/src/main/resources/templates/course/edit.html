@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Course</title>
+    <style>
+        .container {
+            max-width:1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            	grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* 추가된 스타일
+        .form-group {
+            display: grid;
+            grid-template-columns:400px 400px;
+            gap: 10px;
+        }
+         */
+        
+
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="submit"],
+        a.btn-primary,
+        a.btn-danger {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"],
+        a.btn-primary {
+              background-color: rgb(85, 169, 225);
+             border: none; 
+        }
+
+      .btn-danger {
+            background-color: rgb(255, 149, 149);
+            border: none; 
+        }
+
+        .btn-danger:hover {
+            background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+        input[type="submit"]:hover,
+        a.btn-primary:hover {
+          background-color: rgb(116, 185, 231);
+        }
+        
+        .form-group input[readonly] {
+    background-color: #f5f5f5; /* Light gray background color */
+    border: 1px solid #ddd; /* Gray border */
+    color: #777; /* Gray text color */
+    cursor: not-allowed; /* Change cursor to indicate non-editable */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Course</h1>
+        <form th:action="@{'/courses/update/' + ${course.coursecode}}" method="post" th:object="${course}">
+            <div class="form-group">
+                <label for="courseCode">Course Code</label>
+                <input type="text" id="courseCode" name="coursecode" th:field="*{coursecode}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="courseName">Course Name</label>
+                <input type="text" id="courseName" name="coursename" th:field="*{coursename}">
+            </div>
+            
+            <div class="form-group">
+                <label for="tuitionFee">Tuition Fee</label>
+                <input type="number" id="tuitionFee" name="tuitionfee" th:field="*{tuitionfee}">
+            </div>
+            
+            <div class="form-group">
+                <label for="textbookName">Textbook Name</label>
+                <input type="text" id="textbookName" name="textbookname" th:field="*{textbookname}">
+            </div>
+            
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" name="startdate" th:field="*{startdate}">
+            </div>
+            
+            <div class="form-group">
+                <label for="courseType">Course Type</label>
+                <input type="text" id="courseType" name="coursetype" th:field="*{coursetype}">
+            </div>
+            
+            <div class="form-group">
+                <label for="classDays">Class Days</label>
+                <input type="number" id="classDays" name="classdays" th:field="*{classdays}">
+            </div>
+            
+            <div class="form-group">
+                <label for="subjectCode">Subject Code</label>
+                <input type="text" id="subjectCode" name="subjectcode" th:field="*{subjectcode}">
+            </div>
+            
+            <div class="form-group">
+                <label for="enrolledStudents">Enrolled Students</label>
+                <input type="number" id="enrolledStudents" name="enrolledstudents" th:field="*{enrolledstudents}">
+            </div>
+            
+            <div class="form-group">
+                <label for="lectureRoomNumber">Lecture Room Number</label>
+                <input type="text" id="lectureRoomNumber" name="lectureroomnumber" th:field="*{lectureroomnumber}">
+            </div>
+            
+            <input type="submit" value="Update">
+            <a class="btn btn-danger" href="#"
+                th:attr="data-url=@{'/courses'}"
+                th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

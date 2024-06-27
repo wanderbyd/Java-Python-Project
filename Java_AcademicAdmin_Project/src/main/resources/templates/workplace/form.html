@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Workplace</title>
+   <style>
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+      input[type="submit"] {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+       background-color: rgb(255, 149, 149);
+            border: none; 
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+    input[type="submit"]:hover {
+       background-color: rgb(255, 176, 176);
+            border: none; 
+    }
+
+    a.btn.btn-list {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+         background-color: rgb(85, 169, 225);
+             border: none; 
+        transition: background-color 0.3s;
+    }
+
+    a.btn.btn-list:hover {
+       background-color: rgb(116, 185, 231);
+    }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Workplace</h1>
+        <form th:action="@{'/workplaces/create'}" method="post" th:object="${workplace}">
+         
+                <label for="businessregistrationnumber">Business Registration Number</label>
+                <input type="text" id="businessregistrationnumber" name="businessregistrationnumber" class="form-control" th:field="*{businessregistrationnumber}">
+         
+    
+                <label for="companyname">Name</label>
+                <input type="text" id="companyname" name="companyname" class="form-control" th:field="*{companyname}">
+   
+     
+                <label for="companyaddress">Company Address</label>
+                <input type="text" id="companyaddress" name="companyaddress" class="form-control" th:field="*{companyaddress}">
+    
+   
+                <label for="phonenumber">Phone Number</label>
+                <input type="text" id="phonenumber" name="phonenumber" class="form-control" th:field="*{phonenumber}">
+  
+   
+                <label for="faxnumber">Fax Number</label>
+                <input type="text" id="faxnumber" name="faxnumber" class="form-control" th:field="*{faxnumber}">
+         
+            <input class="btn btn-primary" type="submit" value="Submit">
+      
+     <a class="btn btn-list" href="#"
+									th:attr="data-url=@{/workplaces}"
+									th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Back to List</a>
+            
+        </form>
+
+    </div>
+</body>
+</html>

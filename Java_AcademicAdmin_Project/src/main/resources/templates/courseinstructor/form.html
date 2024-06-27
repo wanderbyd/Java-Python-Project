@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Course Instructor</title>
+        <style>
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+       input[type="submit"] {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+         background-color: rgb(255, 149, 149);
+            border: none; 
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+        input[type="submit"]:hover {
+           background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+
+    a.btn.btn-list {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+       background-color: rgb(85, 169, 225);
+             border: none; 
+        transition: background-color 0.3s;
+    }
+      a.btn.btn-list:hover {
+        background-color: rgb(116, 185, 231);
+            color: #fff;
+    }
+
+       
+    </style>
+</head>
+<body>
+	  <div class="container">
+    <h1>Create Course Instructor</h1>
+    <form th:object="${courseInstructor}" th:action="@{/courseinstructors/new}" method="post">
+        Course Code
+        <select th:field="*{coursecode}">
+            <option value="">Select Course Code</option>
+            <th:block th:each="course : ${courses}">
+                <option th:value="${course.coursecode}" th:text="${course.coursecode + ' - ' + course.coursename}"></option>
+            </th:block>
+        </select>
+ 
+        Instructor ID
+        <select th:field="*{teacherid}">
+            <option value="">Select Instructor ID</option>
+            <th:block th:each="teacher : ${teachers}">
+                <option th:value="${teacher.teacherid}" th:text="${teacher.teacherid + ' - ' + teacher.tname}"></option>
+            </th:block>
+        </select>
+     
+        Lecture Date <input type="date" th:field="*{lecturedate}"/>
+       Lecture Time <input type="text" th:field="*{lecturetime}"/>
+        Evaluation <input type="number" th:field="*{lectureevaluation}"/>
+      
+        <input class="btn btn-primary" type="submit" value="Submit">
+    <a class="btn btn-list" href="#" th:attr="data-url=@{'/courseinstructors'}"
+							th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Back to List</a>
+   </form>
+ </div>
+</body>
+</html>

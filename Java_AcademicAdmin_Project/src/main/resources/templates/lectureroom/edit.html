@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Lecture Room</title>
+    	<style>
+		.container {
+			max-width:1500px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			color: #333;
+			text-align: center;
+		}
+
+		form {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+			margin-top: 20px;
+		}
+
+		label {
+			font-weight: bold;
+			color: #333;
+		}
+
+		input {
+			width: 100%;
+			padding: 8px;
+			margin-top: 5px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+		}
+
+		input[type="submit"],
+		a.btn-primary,
+		a.btn-danger {
+			display: inline-block;
+			padding: 8px 16px;
+			margin-top: 20px;
+			text-decoration: none;
+			color: #fff;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+     input[type="submit"],
+        a.btn-primary {
+              background-color: rgb(85, 169, 225);
+             border: none; 
+        }
+
+      .btn-danger {
+            background-color: rgb(255, 149, 149);
+            border: none; 
+        }
+
+        .btn-danger:hover {
+            background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+        input[type="submit"]:hover,
+        a.btn-primary:hover {
+          background-color: rgb(116, 185, 231);
+        }
+	</style>
+</head>
+<body>
+	<div class="container">
+    <h1>Edit LectureRoom</h1>
+    <form th:action="@{'/lecturerooms/update/' + ${lectureRoom.roomnumber}}" method="post" th:object="${lectureRoom}">
+        <label for="roomnumber">Room Number</label>
+        <input type="text" id="roomnumber" name="roomnumber" th:field="*{roomnumber}">
+        <label for="roomname">Room Name</label>
+        <input type="text" id="roomname" name="roomname" th:field="*{roomname}">
+        <label for="seatcount">Seat Count</label>
+        <input type="number" id="seatcount" name="seatcount" th:field="*{seatcount}">
+       	<input type="submit" value="Update">
+      <a class="btn btn-danger" href="#" th:attr="data-url=@{'/lecturerooms'}"
+							th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Cancel</a>
+    </form>
+
+
+        </div>
+</body>
+</html>

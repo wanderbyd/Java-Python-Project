@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CourseInstructor Edit Form</title>
+    	<style>
+		.container {
+			max-width:1500px;
+			margin: 20px auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			color: #333;
+			text-align: center;
+		}
+
+		form {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+			margin-top: 20px;
+		}
+
+		label {
+			font-weight: bold;
+			color: #333;
+		}
+
+		input {
+			width: 100%;
+			padding: 8px;
+			margin-top: 5px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+		}
+
+		input[type="submit"],
+		a.btn-primary,
+		a.btn-danger {
+			display: inline-block;
+			padding: 8px 16px;
+			margin-top: 20px;
+			text-decoration: none;
+			color: #fff;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+		}
+
+      input[type="submit"],
+        a.btn-primary {
+              background-color: rgb(85, 169, 225);
+             border: none; 
+        }
+
+      .btn-danger {
+            background-color: rgb(255, 149, 149);
+            border: none; 
+        }
+
+        .btn-danger:hover {
+            background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+        input[type="submit"]:hover,
+        a.btn-primary:hover {
+          background-color: rgb(116, 185, 231);
+        }
+                .form-group input[readonly] {
+    background-color: #f5f5f5; /* Light gray background color */
+    border: 1px solid #ddd; /* Gray border */
+    color: #777; /* Gray text color */
+    cursor: not-allowed; /* Change cursor to indicate non-editable */
+}
+	</style>
+</head>
+<body>
+	 <div class="container">
+    <h1>Edit CourseInstructor</h1>
+    <form th:action="@{'/courseinstructors/update/' + ${courseInstructor.coursecode} + '/' + ${courseInstructor.teacherid}+ '/' + ${courseInstructor.lecturedate} }" method="post" th:object="${courseInstructor}"  >
+
+         <label for="coursecode">Course Code</label>
+        <input type="text" id="coursecode" name="coursecode" th:field="*{coursecode}" readonly>
+    
+
+        <label for="teacherid">Instructor ID</label>
+        <input type="text" id="teacherid" name="teacherid" th:field="*{teacherid}" readonly>
+ 
+   
+        <label for="lecturedate">Lecture Date</label>
+        <input type="date" id="lecturedate" name="lecturedate" th:value="*{lecturedate}">
+       
+        <label for="lecturetime">Lecture Time</label>
+        <input type="number" id="lecturetime" name="lecturetime" th:field="*{lecturetime}">
+        
+        <label for="lectureevaluation">Lecture Evaluation</label>
+        <input type="number" id="lectureevaluation" name="lectureevaluation" th:field="*{lectureevaluation}">
+        
+       
+      <input type="submit" value="Update">
+ 
+    <a class="btn btn-danger" href="#" th:attr="data-url=@{'/courseinstructors'}"
+							th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Back to List</a>
+   </form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Course Instructor</title>
+</head>
+<body>
+    <h1>Edit Course Instructor</h1>
+    <form th:action="@{'/courseinstructors/edit/' + ${courseInstructor.coursecode} + '/' + ${courseInstructor.teacherid} }" method="post" th:object="${courseInstructor}"  >
+        Course Code: <input type="text" th:field="*{coursecode}" readonly="readonly"/><br>
+        Teacher ID: <input type="text" th:field="*{teacherid}" readonly="readonly"/><br>
+        Lecture Date: <input type="date" th:field="*{lecturedate}"/><br>
+        Lecture Time: <input type="text" th:field="*{lecturetime}"/><br>
+        Lecture Evaluation: <input type="number" th:field="*{lectureevaluation}"/><br>
+        <input type="submit" value="Save"/>
+    </form>
+    <a href="/courseinstructors">Back to List</a></body>
+</html>-->

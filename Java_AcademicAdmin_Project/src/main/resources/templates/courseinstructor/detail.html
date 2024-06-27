@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Course Instructor Details</title>
+	 <style>
+
+
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+       
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        dl {
+            display: grid;
+            grid-template-columns: 150px auto;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        dt {
+            font-weight: bold;
+            color: #333;
+        }
+
+        dd {
+            margin: 0;
+            padding: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            font-weight: bold;
+            color: #333;
+        }
+
+        td {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: rgb(85, 169, 225);
+            border: none; 
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+          .btn:hover {
+            background-color: rgb(116, 185, 231);
+            color: #fff;
+        }
+        
+        .btn-danger {
+            background-color: rgb(255, 149, 149);
+            border: none; 
+        }
+
+        .btn-danger:hover {
+            background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>CourseInstructor Detail</h1>
+        <div th:if="${courseInstructor != null}">
+            <table class="table table-bordered table-container">
+            <tbody>
+                <tr>
+                    <th>Course Code</th>
+                    <td th:text="${courseInstructor.coursecode}"></td>
+                </tr>
+                <tr>
+                    <th>Teacher ID</th>
+                    <td th:text="${courseInstructor.teacherid}"></td>
+                </tr>
+                <tr>
+                    <th>Lecture Date</th>
+                    <td th:text="${courseInstructor.lecturedate}"></td>
+                </tr>
+                <tr>
+                    <th>Lecture Time</th>
+                    <td th:text="${courseInstructor.lecturetime}"></td>
+                </tr>
+                <tr>
+                    <th>Lecture Evaluation</th>
+                    <td th:text="${courseInstructor.lectureevaluation}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a class="btn btn-danger" href="#"
+                th:attr="data-url=@{'/courseinstructors/edit/' + ${courseInstructor.coursecode} + '/' + ${courseInstructor.teacherid} + '/' + ${#dates.format(courseInstructor.lecturedate, 'yyyy-MM-dd')}}"
+                th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Edit</a>
+
+            <a class="btn btn-primary" href="#" th:attr="data-url=@{'/courseinstructors'}"
+                th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Back to List</a>
+        </div>
+
+        <div th:unless="${courseInstructor != null}">
+            <p>Course Instructor not found</p>
+        </div>
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enrollments List</title>
+     <title>Student List</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-section {
+            max-height: 400px;
+            overflow-y: auto;
+            border-spacing: 10px;
+             width: 1400px;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .actions {
+            display: flex;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #fff;
+             background-color: rgb(85, 169, 225);
+             border: none; 
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s; 
+        }
+
+    .btn:hover {
+            background-color: rgb(116, 185, 231);
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: rgb(255, 149, 149);
+            border: none; 
+        }
+
+        .btn-danger:hover {
+            background-color: rgb(255, 176, 176);
+            border: none; 
+        }
+
+        .footer-section {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+ 
+    </style>
+</head>
+<body>
+  	<div class="container">
+	  <div class="header-section">
+			<h1 style="display: inline;">Enrollment List</h1>
+			<div style="display: inline;">
+				<select id="sortSelect" onchange="handleSortChange(this)">
+					<option value='null'>Sort by</option>
+					<option value="coursecode">CourseCode</option>
+					<option value="ssn">SSN</option>
+					<option value="evaluation">Evaluation</option>
+					<option value="tuitionfee">Tuitionfee</option>
+					<option value="attendance1">Attendance1</option>
+					<option value="attendance2">Attendance2</option>
+					<option value="attendance3">Attendance3</option>
+					<option value="attendance4">Attendance4</option>
+					<option value="attendance5">Attendance5</option>
+					<option value="inputOrder">InputOrder</option>
+				</select>
+			</div>
+
+		 </div>
+
+        <div class="table-section">
+            <table>
+                <thead>
+						<tr>
+                        <th>Course Code</th>
+                        <th>SSN</th>
+                        <th>Evaluation</th>
+                        <th>Tuition Fee</th>
+                        <th>Attendance 1</th>
+                        <th>Attendance 2</th>
+                        <th>Attendance 3</th>
+                        <th>Attendance 4</th>
+                        <th>Attendance 5</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="enrollment : ${enrollments}">
+                        <td th:text="${enrollment.coursecode}"></td>
+                        <td th:text="${enrollment.ssn}"></td>
+                        <td th:text="${enrollment.evaluation}"></td>
+                        <td th:text="${enrollment.tuitionfee}"></td>
+                        <td th:text="${enrollment.attendance1}"></td>
+                        <td th:text="${enrollment.attendance2}"></td>
+                        <td th:text="${enrollment.attendance3}"></td>
+                        <td th:text="${enrollment.attendance4}"></td>
+                        <td th:text="${enrollment.attendance5}"></td>
+                         <td>
+	
+							
+							
+										<a class="btn" href="#" th:attr="data-url=@{'/enrollments/' + ${enrollment.coursecode} + '/' + ${enrollment.ssn}}"
+									th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Detail</a>
+								<a class="btn" href="#"
+									th:attr="data-url=@{'/enrollments/' + ${enrollment.coursecode} + '/' + ${enrollment.ssn} + '/edit'}"
+									th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Edit</a>					                       
+                       
+                       	<form th:action="@{'/enrollments/' + ${enrollment.coursecode} + '/' + ${enrollment.ssn} + '/delete'}" method="post"
+									style="display: inline;">
+								 <button class="btn btn-danger" type="submit">Delete</button>
+								</form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
+         <div class="footer-section">
+        <a class="btn btn-primary" href="#" th:attr="data-url=@{'/enrollments/new'}"
+				th:onclick="'loadNewContent(this.getAttribute(\'data-url\')); return false;'">Create New Enrollment</a>
+        <a class="btn btn-danger" th:href="@{'/'}">Main</a>
+        </div>
+    </div>
+
+
+
+ <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var sortSelect = document.getElementById("sortSelect");
+            var selectedOption = localStorage.getItem("selectedSortOption");
+
+            if (selectedOption) {
+                sortSelect.value = selectedOption;
+                handleSortChange(sortSelect);
+            }
+
+            sortSelect.addEventListener("change", function () {
+                var selectedValue = sortSelect.value;
+                localStorage.setItem("selectedSortOption", selectedValue);
+            });
+        });
+
+        function handleSortChange(selectElement) {
+            var selectedOption = selectElement.value;
+            var url = "/enrollments?sortBy=" + selectedOption;
+
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(data, 'text/html');
+
+                    // Update the student list container with the new content
+                    var listContainer = document.querySelector('.table-section');
+                    listContainer.innerHTML = doc.querySelector('.table-section').innerHTML;
+
+                    // Reattach event listeners to buttons
+                    addEventListenersToButtons(listContainer);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Function to add event listeners to buttons
+        function addEventListenersToButtons(container) {
+            var buttons = container.querySelectorAll('.btn');
+
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    // Your button click logic here
+                    event.preventDefault();
+                    console.log('Button clicked!');
+                });
+            });
+        }
+    </script>
+    </body>
+</html>
