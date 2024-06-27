@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h3 class="title">Member Details</h3>
+            <div class="columns">
+                <div class="column is-half">
+                    <table class="table is-bordered">
+                        <tr>
+                            <td class="has-text-weight-bold">MEMBER ID:</td>
+                            <td th:text="${member.memberId}"></td>
+                        </tr>
+                        <tr>
+                            <td class="has-text-weight-bold">JOIN DATE:</td>
+                            <td th:text="${member.joinDate}"></td>
+                        </tr>
+                        <tr>
+                            <td class="has-text-weight-bold">PASSWORD:</td>
+                            <td th:text="${member.password}"></td>
+                        </tr>
+                 
+                        <tr>
+                            <td class="has-text-weight-bold">PHONE:</td>
+                            <td th:text="${member.phone}"></td>
+                        </tr>
+                        <tr>
+                            <td class="has-text-weight-bold">IS WITHDRAWN:</td>
+                            <td th:text="${member.isWithdraw}"></td>
+                        </tr>
+                            </table>
+  <div class="container mt-4">
+    <div class="buttons is-pulled-left">
+		 <a class="button is-primary ml-2" th:href="@{/member/edit/{memberId}(memberId=${member.memberId})}">Edit</a>
+        <a class="button is-info" th:href="@{/member/}">Back to List</a>
+       
+    </div>
+</div>
+                
+                </div>
+            </div>
+        </div>
+  
+    </section>
+
+ 
+
+    <!-- Bulma JS -->
+    <!-- You may include Bulma's JavaScript if needed -->
+</body>
+</html>

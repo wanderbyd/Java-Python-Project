@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Book</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+</head>
+<body class="section">
+    <div class="container">
+        <h3 class="title">Add New Book</h3>
+        <form th:action="@{/book/add}" method="post">
+            <div class="field">
+                <label class="label" for="bookname">Book Name:</label>
+                <div class="control">
+                    <input class="input" type="text" id="bookname" name="bookname"style="max-width: 220px;" required />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="publisher">Publisher:</label>
+                <div class="control">
+                    <input class="input" type="text" id="publisher" name="publisher"style="max-width: 220px;" required />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="price">Price:</label>
+                <div class="control">
+                    <input class="input" type="number" id="price" name="price" style="max-width: 220px;"required />
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary" type="submit">Add Book</button>
+                     <a class="button is-info" href="/book/">Back to list</a>
+                </div>
+            </div>
+        </form>
+        <br>
+       
+    </div>
+</body>
+</html>

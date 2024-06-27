@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+</head>
+<body class="section">
+    <div class="container">
+        <h3 class="title">Edit Book</h3>
+        <form th:action="@{/book/edit/{bookid}(bookid=${book.bookid})}" method="post">
+            <div class="field">
+                
+                    <label class="label">Book Name:</label>
+               <div class="control">
+               
+                            <input class="input" type="text" th:field="${book.bookname}" required maxlength="50" style="max-width: 200px;"/>
+                      
+                    </div>
+                </div>
+       
+
+            <div class="field">
+               
+                    <label class="label">Publisher:</label>
+              <div class="control">
+              
+                            <input class="input" type="text" th:field="${book.publisher}" required maxlength="50" style="max-width: 200px;" />
+                    
+                </div>
+            </div>
+
+            <div class="field">
+              
+                    <label class="label">Price:</label>
+                <div class="control">
+                            <input class="input" type="number" th:field="${book.price}" required min="0" max="9999.99" step="0.01" style="max-width: 200px;"/>
+                     
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-primary" type="submit">Update</button>
+                </div>
+                <div class="control">
+                    <a class="button is-info" href="/book/">Back to list</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

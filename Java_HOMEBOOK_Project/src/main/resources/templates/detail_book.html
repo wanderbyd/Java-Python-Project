@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body class="section">
+    <div class="container">
+        <h2 class="title is-2">Book Details</h2>
+         <div class="columns">
+                <div class="column is-half">
+        <table class="table is-fullwidth">
+            <tr>
+                <td>ID:</td>
+                <td th:text="${book.bookid}"></td>
+            </tr>
+            <tr>
+                <td>Book Name:</td>
+                <td th:text="${book.bookname}"></td>
+            </tr>
+            <tr>
+                <td>Publisher:</td>
+                <td th:text="${book.publisher}"></td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td th:text="${book.price}"></td>
+            </tr>
+        </table>
+       
+        <a class="button is-primary" th:href="@{/book/edit/{bookid}(bookid=${book.bookid})}">Edit</a>
+         <a class="button is-info" href="/book/">Back to list</a>
+    </div>
+         </div>
+        </div>
+</body>
+</html>

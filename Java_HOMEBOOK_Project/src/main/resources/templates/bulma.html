@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Bulma Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        .menu-list {
+            background-color: #ccffcc;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+        #loginContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #welcomeMessage {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar is-info" style="height: 60px;">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">My Website</a>
+            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span> <span></span> <span></span>
+            </div>
+        </div>
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="#" onclick="openBoardList('member/')">Members</a>
+                <a class="navbar-item" href="#" onclick="openBoardList('book/')">Books</a>
+                <a class="navbar-item" href="#" onclick="openBoardList('homebook/')" th:if="${session.loggedInMember != null}">Homebook</a>
+           
+
+                <!-- 아래 부분이 변경됩니다 -->
+                <div id="loginContainer" class="ml-auto">
+                    <span th:if="${session.loggedInMember != null}" id="welcomeMessage" th:text="${session.loggedInMember.memberId} + '🚀　' "></span>
+                    <!-- 세션 정보를 Thymeleaf로 렌더링 -->
+                    <a th:if="${session.loggedInMember == null}" class="button is-primary" id="loginButton"
+                        th:href="@{/login}">LOGIN</a>
+                    <a th:if="${session.loggedInMember != null}" class="button is-primary" id="logoutButton"
+                        th:href="@{/logout}">LOGOUT</a>
+                </div>
+                <!-- 아래 부분이 변경됩니다 -->
+            </div>
+        </div>
+    </nav>
+    <div class="columns">
+		<div class="column is-one-quarter">
+			<aside class="menu">
+				<p class="menu-label has-text-primary">Menu</p>
+				<ul class="menu-list">
+					<li><a class="has-text-info">Dashboard</a></li>
+					<li><a class="has-text-info">Profile</a>
+						<ul>
+							<li><a>My profile</a></li>
+							<li><a>Settings</a></li>
+						</ul>
+					</li>
+					<li><a class="has-text-info">Groups</a></li>
+					<li><a class="has-text-info">Members</a></li>
+					<li><a class="has-text-info">Logs</a></li>
+				</ul>
+				<p class="menu-label has-text-primary">Administration</p>
+				<ul class="menu-list">
+					<li><a class="has-text-info">Team Settings</a></li>
+					<li><a class="has-text-info">Manage Your Team</a>
+						<ul>
+							<li><a>Members</a></li>
+							<li><a>Plugins</a></li>
+							<li><a>Add a member</a></li>
+						</ul>
+					</li>
+					<li><a class="has-text-info">Invitations</a></li>
+					<li><a class="has-text-info">Cloud Storage Environment
+							Settings</a></li>
+					<li><a class="has-text-info">Authentication</a></li>
+				</ul>
+			</aside>
+		</div>
+		<div class="column">
+			<div id="boardListContainer">
+			<img src="/images/book.jpg" alt="Homebook Image" width="1000" height="1000">
+
+			</div>
+		</div>
+	</div>
+
+    <script>
+        // openBoardList 함수 추가
+        function openBoardList(target) {
+            var iframe = document.createElement("iframe");
+            iframe.src = target;
+            iframe.frameBorder = "0";
+            iframe.width = "100%"; // iframe의 너비를 100%로 설정
+            iframe.height = "800px"; // iframe의 높이를 원하는 크기로 설정
+            document.getElementById("boardListContainer").innerHTML = ''; // 기존 iframe을 삭제
+            document.getElementById("boardListContainer").appendChild(iframe);
+        }
+    </script>
+</body>
+
+</html>
+

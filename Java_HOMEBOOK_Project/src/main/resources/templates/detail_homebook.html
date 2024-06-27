@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homebook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container has-text-centered">
+            <h1 class="title">Homebook Details</h1>
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <tbody>
+                    <tr>
+                        <th>Serial No:</th>
+                        <td th:text="${homebook.serialNo}"></td>
+                    </tr>
+                    <tr>
+                        <th>Date:</th>
+                        <td th:text="${homebook.day}"></td>
+                    </tr>
+                    <tr>
+                        <th>Section:</th>
+                        <td th:text="${homebook.section}"></td>
+                    </tr>
+                    <tr>
+                        <th>AccoutTitle:</th>
+                        <td th:text="${homebook.accountTitle}"></td>
+                    </tr>
+                    <tr>
+                        <th>Remark:</th>
+                        <td th:text="${homebook.remark}"></td>
+                    </tr>
+                    <tr>
+                        <th>Revenue:</th>
+                        <td th:text="${homebook.revenue}"></td>
+                    </tr>
+                    <tr>
+                        <th>Expense:</th>
+                        <td th:text="${homebook.expense}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="button is-primary" th:href="@{/homebook/edit/{serialNo}(serialNo=${homebook.serialNo})}">Edit</a>
+            <a class="button is-success" th:href="@{/homebook/}">Back to Homebook List</a>
+        </div>
+    </section>
+
+
+</body>
+
+</html>

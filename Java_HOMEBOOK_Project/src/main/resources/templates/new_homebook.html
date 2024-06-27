@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Create Homebook</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+</head>
+
+<body>
+	<section class="section">
+		<div class="container">
+			<h1 class="title">Create Homebook</h1>
+			<form th:action="@{/homebook/add}" method="post">
+				<div class="field">
+	
+					<label class="label" for="generatedSerialNo"></label>
+					<div class="control">
+						<span id="generatedSerialNo" th:text="${generatedSerialNo}"></span>
+					</div>
+
+				</div>
+				<div class="field">
+					<label class="label" for="day">Date: (Ex:2020-01-01)</label>
+
+					<div class="control">
+						<input type="text" id="day" name="day" class="input datepicker"style="max-width: 500px;" required />
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="section">Section:</label>
+					<div class="control">
+						<input type="text" id="section" name="section" class="input" style="max-width: 500px;"required />
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="accountTitle">Account Title:</label>
+					<div class="control">
+						<input type="text" id="accountTitle" name="accountTitle" class="input" style="max-width: 500px;"required />
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="remark">Remark:</label>
+					<div class="control">
+						<input type="text" id="remark" name="remark" class="input" style="max-width: 500px;"/>
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="revenue">Revenue:</label>
+					<div class="control">
+						<input type="number" id="revenue" name="revenue" class="input" style="max-width: 500px;"required />
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="expense">Expense:</label>
+					<div class="control">
+						<input type="number" id="expense" name="expense" class="input" style="max-width: 500px;"required />
+					</div>
+				</div>
+				<div class="field">
+					<label class="label" for="memberId">Member ID:</label>
+					<div class="control">
+						<input type="text" id="memberId" name="memberId" class="input"
+							th:value="${session.loggedInMember.memberId}" style="max-width: 500px;"required />
+					</div>
+				</div>
+
+				<div class="field is-grouped">
+					<div class="control">
+						<button type="submit" class="button is-primary">Create</button>
+					</div>
+					<div class="control">
+						<a class="button is-success" href="/homebook/">Back to Homebook List</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<script>
+		// DatePicker 초기화
+		$(document).ready(function () {
+			$('.datepicker').datepicker({
+				format: 'yyyy-mm-dd', // 날짜 형식을 지정하세요
+				autoclose: true
+			});
+		});
+	</script>
+</body>
+
+</html>

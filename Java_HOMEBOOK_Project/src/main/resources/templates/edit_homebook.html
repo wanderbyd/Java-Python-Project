@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Homebook</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+
+    <!-- Custom CSS for styling -->
+    <style>
+        /* Add custom styles here */
+        .container {
+            padding-top: 20px;
+        }
+
+        h2 {
+            color: rgb(0, 0, 0);
+        }
+
+        /* Style for the button */
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+	<h1 class="title">Edit Homebook</h1>
+    <h2></h2>
+    <form th:action="@{/homebook/edit/{serialNo}(serialNo=${homebook.serialNo})}" method="post">
+        <div class="field">
+            <label class="label">Date:</label>
+            <div class="control">
+                <input type="text" th:field="${homebook.day}" class="input"style="max-width: 500px;" required />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Section:</label>
+            <div class="control">
+                <input type="text" th:field="${homebook.section}" class="input" style="max-width: 500px;" required />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Account Title:</label>
+            <div class="control">
+                <input type="text" th:field="${homebook.accountTitle}" class="input" style="max-width: 500px;"required />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Remark:</label>
+            <div class="control">
+                <input type="text" th:field="${homebook.remark}" class="input" style="max-width: 500px;"/>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Revenue:</label>
+            <div class="control">
+                <input type="number" th:field="${homebook.revenue}" class="input" style="max-width: 500px;"required />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Expense:</label>
+            <div class="control">
+                <input type="number" th:field="${homebook.expense}" class="input" style="max-width: 500px;"required />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Member ID:</label>
+            <div class="control">
+                <input type="text" id="memberId" name="memberId" class="input" th:value="${session.loggedInMember.memberId}" style="max-width: 500px;"required />
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-primary">Edit</button>
+            </div>
+            <div class="control">
+                <a class="button is-success" href="/homebook/">Back to Homebook List</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+
+</html>
+

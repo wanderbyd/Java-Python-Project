@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Member</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- Bulma CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+</head>
+
+<body class="section">
+    <div class="container">
+        <h3 class="title">Edit Member</h3>
+        <form th:action="@{'/member/update/' + ${member.memberId}}" method="post">
+            <div class="field">
+               
+                    <label class="label">Member ID:</label>
+               <div class="control">
+               
+                            <input class="input" type="text" th:field="${member.memberId}" required="required"style="max-width: 215px;" />
+                   
+                </div>
+            </div>
+
+            <div class="field">
+              
+                    <label class="label">Join Date:</label>
+              <div class="control">
+                
+                            <input class="input" type="text" th:field="${member.joinDate}" required="required"style="max-width: 215px;" />
+                    
+                </div>
+            </div>
+
+            <div class="field">
+               
+                    <label class="label">Password:</label>
+             <div class="control">
+            
+                            <input class="input" type="text" th:field="${member.password}" required="required"style="max-width: 215px;" />
+                  
+                </div>
+            </div>
+
+            <div class="field">
+               
+                    <label class="label">Phone:</label>
+              <div class="control">
+          
+                            <input class="input" type="text" th:field="${member.phone}" required="required"style="max-width: 215px;" />
+                    
+                </div>
+            </div>
+
+            <div class="field">
+                
+                    <label class="label">Is Withdraw:</label>
+             <div class="control">
+             
+                            <input class="input" type="text" th:field="${member.isWithdraw}" required="required" style="max-width: 215px;"/>
+                  
+                </div>
+            </div>
+
+      
+                    <div class="field is-grouped">
+                        <p class="control">
+							<button type="submit" class="button is-primary">Update</button>
+                           
+                        </p>
+                        <p class="control">
+                             <a class="button is-info" th:href="@{/member/}">Back to List</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bulma JS -->
+    <!-- You may include Bulma's JavaScript if needed -->
+</body>
+
+</html>
