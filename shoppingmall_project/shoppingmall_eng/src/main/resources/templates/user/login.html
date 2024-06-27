@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login</title>
+	<th:block th:insert="utils/imports.html :: meta"></th:block>
+	<th:block th:insert="utils/imports.html :: maincss"></th:block>
+</head><!--/head-->
+
+<body>
+	<th:block th:insert="utils/header.html :: header"></th:block>
+	<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-1">
+					<div class="login-form"><!--login form-->
+						<h2>Login</h2>
+						<form action="/login" method="post" onsubmit="return validateForm()">
+							<input type="email" placeholder="Email Address" name="email" />
+							<input type="password" placeholder="************" name="password" />
+
+							<span>
+								　　　　　　DON'T HAVE AN ACCOUNT? <a href="/register">SIGN UP</a>
+							</span>
+							<br>
+							<p style="color: red" th:text="${error}"></p>
+							<button type="submit" class="btn btn-default">LOGIN</button>
+						</form>
+					</div><!--/login form-->
+				</div>
+			</div>
+		</div>
+	</section>
+	<script>
+    function validateForm() {
+        var email = document.getElementsByName("email")[0].value;
+        var password = document.getElementsByName("password")[0].value;
+
+        if (email.trim() === '' && password.trim() === '') {
+            // If both fields are empty, prevent form submission and refresh the page
+            location.reload();
+            return false;
+        }
+
+        // Continue with the normal form submission
+        return true;
+    }
+</script>
+
+	<div style="width: 66%; margin-left:auto;margin-right: auto; ">
+		<th:block th:insert="utils/footer.html :: footer"></th:block>
+	</div>
+	<th:block th:insert="utils/imports.html :: mainjs"></th:block>
+</body>
+
+</html>

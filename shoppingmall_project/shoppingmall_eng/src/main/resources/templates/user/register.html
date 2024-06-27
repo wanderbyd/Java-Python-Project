@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Register</title>
+	<th:block th:insert="utils/imports.html :: meta"></th:block>
+	<th:block th:insert="utils/imports.html :: maincss"></th:block>
+</head><!--/head-->
+
+<body>
+	<th:block th:insert="utils/header.html :: header"></th:block>
+
+	<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="signup-form"><!--sign up form-->
+						<h2>Signup</h2>
+						<form action="/register" method="post" onsubmit="return validateForm()" >
+							<input type="text" placeholder="FIRST NAME" name="firstname" />
+							<input type="text" placeholder="LAST NAME" name="lastname" />							
+							<input type="address" placeholder="ADDRESS" name="address" />
+							<input type="email" placeholder="EMAIL ADDRESS" name="email" />
+							<input type="password" placeholder="PASSWORD" name="hashedpassword" />
+							<span>
+							　　　　　　　　ALREADY A MEMBER? <a href="/login">LOGIN</a>
+							</span>
+							<br><br>
+							<p style="color: red" th:text="${error}"></p>
+							<button type="submit" class="btn btn-default">SIGNUP</button>
+
+						</form>
+					</div><!--/sign up form-->
+				</div>
+			</div>
+		</div>
+	</section><!--/form-->
+
+	<div style="width: 66%; margin-left:auto;margin-right: auto; ">
+		<th:block th:insert="utils/footer.html :: footer"></th:block>
+	</div>
+	<th:block th:insert="utils/imports.html :: mainjs"></th:block>
+
+<script>
+    function validateForm() {
+        var inputs = document.querySelectorAll('.signup-form input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type !== 'submit' && inputs[i].value.trim() === '') {
+                // If any input field (except submit button) is empty, prevent form submission and refresh the page
+                location.reload();
+                return false;
+            }
+        }
+
+        // Continue with the normal form submission
+        return true;
+    }
+</script>
+
+</body>
+
+</html>
