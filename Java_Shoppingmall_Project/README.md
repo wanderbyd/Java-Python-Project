@@ -1,2 +1,2 @@
 # shoppingmall_project
-Java Springboot project/gradle build/Eclipse
+Java Springboot project/gradle build/Eclipse IDE
